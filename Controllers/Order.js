@@ -24,6 +24,12 @@ export const placeOrder = async (req, res) => {
         totalPrice,
         razorpay_order_id: order_id,
       });
+
+      const populatedOrder = await Order.findById(order._id).populate({
+        path: "products.productId",
+        select: "name price image description",
+      });
+
       return res.status(200).json({ order, message: "Order Successful" });
     } else {
       return res.status(400).json({
@@ -39,7 +45,10 @@ export const placeOrder = async (req, res) => {
 
 export const getUserOrder = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.user.userId });
+    const orders = await Order.find({ userId: req.user._id }).populate({
+      path: "products.productId",
+      select: "name price image description",
+    });
     res.status(200).json(orders);
   } catch (err) {
     console.log(err.message);
