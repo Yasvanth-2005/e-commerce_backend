@@ -32,6 +32,10 @@ const ordersSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  razorpay_order_id: {
+    type: String,
+    required: true,
+  },
 });
 
 const Orders = mongoose.model("Orders", ordersSchema);

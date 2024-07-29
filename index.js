@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-// import Razorpay from "razorpay";
 
 import userRouter from "./Routes/User.js";
 import productRouter from "./Routes/Products.js";
@@ -17,11 +16,6 @@ app.use(express.json());
 app.use(bodyParser.json({ limit: "1mb" }));
 app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(cors());
-
-// export const instance = new Razorpay({
-//   key_id: process.env.RAZORPAY_KEY_ID,
-//   key_secret: process.env.RAZORPAY_SECRET_KEY,
-// });
 
 /* DATABSE CONNECTION */
 mongoose
