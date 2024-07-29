@@ -139,3 +139,7 @@ export const fetchSessions = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const fetchUserFromToken = async (req, res) => {
+  return res.json({ user: req.user });
+};
