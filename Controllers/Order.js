@@ -1,5 +1,6 @@
 import Order from "../Models/Orders.js";
 import instance from "../razorpayInstance.js";
+import crypto from "crypto";
 
 export const placeOrder = async (req, res) => {
   try {
@@ -39,16 +40,18 @@ export const placeOrder = async (req, res) => {
     }
   } catch (err) {
     console.log(err.message);
-    return res.status(200).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
 export const getUserOrder = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.user._id }).populate({
-      path: "products.productId",
-      select: "name price image description",
-    });
+    const orders = await Order.find({ userId: req.user._id })
+      .populate({
+        path: "products.productId",
+        select: "name price image description",
+      })
+      .sort({ createdAt: -1 });
     res.status(200).json(orders);
   } catch (err) {
     console.log(err.message);
@@ -64,11 +67,11 @@ export const createOrder = async (req, res) => {
       amount: Number(totalPrice * 100), // in Paises
       currency: "INR",
     });
-    console.log(order);
+
     if (!order.id) {
       return res.status(200).send({ status: "Failure" });
     }
-    return res.status(200).send({ order, status: "success" });
+    return res.status(200).send({ order, status: "Success" });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: "Internal Server Error" });
