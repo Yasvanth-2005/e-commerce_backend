@@ -6,7 +6,7 @@ import {
   fetchProducts,
   updateProduct,
 } from "../Controllers/product.js";
-import authenticate from "../middleware/authentication.js";
+import authenticate from "../Middleware/authentication.js";
 
 const productRouter = express.Router();
 

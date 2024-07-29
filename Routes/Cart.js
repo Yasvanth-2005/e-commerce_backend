@@ -1,5 +1,5 @@
 import express from "express";
-import authenticate from "../middleware/authentication.js";
+import authenticate from "../Middleware/authentication.js";
 import { addToCart, removeItem, viewCart } from "../Controllers/Cart.js";
 
 const cartRouter = express.Router();
