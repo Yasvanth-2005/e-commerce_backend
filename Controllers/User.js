@@ -102,11 +102,9 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = async (req, res) => {
-  const { userId } = req.user;
-
   try {
     const session = await Session.findOneAndUpdate(
-      { userId, logoutTime: null },
+      { userId: req.user._id, logoutTime: null },
       { logoutTime: Date.now() },
       { new: true }
     );
