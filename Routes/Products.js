@@ -6,13 +6,14 @@ import {
   fetchProducts,
   updateProduct,
 } from "../Controllers/product.js";
+import authenticate from "../middleware/authentication.js";
 
 const productRouter = express.Router();
 
 productRouter.get("/", fetchProducts);
 productRouter.get("/:id", fetchOneProduct);
-productRouter.post("/", addProduct);
-productRouter.put("/:id", updateProduct);
-productRouter.delete("/:id", deleteProduct);
+productRouter.post("/", authenticate, addProduct);
+productRouter.put("/:id", authenticate, updateProduct);
+productRouter.delete("/:id", authenticate, deleteProduct);
 
 export default productRouter;

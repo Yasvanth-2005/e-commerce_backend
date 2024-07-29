@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const sessionSchema = mongoose.Schema({
   userId: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },

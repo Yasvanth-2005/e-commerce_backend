@@ -27,6 +27,11 @@ export const fetchOneProduct = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
+  const { role } = req.user;
+  if (role !== "admin") {
+    return res.status(404).json({ message: "Access Denied" });
+  }
+
   const { name, description, price, stockQuantity } = req.body;
   try {
     const newProduct = await Product.create({
@@ -47,6 +52,11 @@ export const addProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
+  const { role } = req.user;
+  if (role !== "admin") {
+    return res.status(404).json({ message: "Access Denied" });
+  }
+
   const { id } = req.params;
   const { price, name, description, stockQuantity } = req.body;
 
@@ -74,6 +84,11 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
+  const { role } = req.user;
+  if (role !== "admin") {
+    return res.status(404).json({ message: "Access Denied" });
+  }
+
   const { id } = req.params;
   try {
     const deletedProduct = await Product.findByIdAndDelete(id);
